@@ -8,13 +8,14 @@ import ua.edu.ucu.functions.MyPredicate;
 import ua.edu.ucu.smartarr.*;
 
 public class SmartArrayApp {
+    private static final int GPA = 4;
 
     public static Integer[]
     filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
 
         MyPredicate pr = t -> ((Integer) t) > 0;
 
-        MyComparator cmp = (o1, o2) -> ((Integer) o1) - ((Integer) o2);
+        MyComparator cmp = (obOne, obTwo) -> ((Integer) obOne) - ((Integer) obTwo);
 
         MyFunction func = t -> 2 * ((Integer) t);
 
@@ -30,14 +31,16 @@ public class SmartArrayApp {
     }
 
     public static String[]
-    findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
+    findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname
+            (Student[] students) {
 
         MyPredicate pr = t -> ((Student) t).getYear() == 2;
 
-        MyPredicate prAv = t -> ((Student) t).getGPA() >= 4;
+        MyPredicate prAv = t -> ((Student) t).getGPA() >= GPA;
 
-        MyComparator cmp = (o1, o2) ->
-                ((Student) o1).getSurname().compareTo(((Student) o2).getSurname());
+        MyComparator cmp = (obOne, obTwo) ->
+                ((Student) obOne).getSurname().compareTo(
+                        ((Student) obTwo).getSurname());
 
         SmartArray sa = new BaseArray(students);
 
@@ -49,7 +52,8 @@ public class SmartArrayApp {
         Object[] result = sa.toArray();
         String[] resultA = new String[result.length];
         for (int i = 0; i < result.length; i++) {
-            resultA[i] = ((Student) result[i]).getSurname() + " " + ((Student) result[i]).getName();
+            resultA[i] = ((Student) result[i]).getSurname() + " " +
+                    ((Student) result[i]).getName();
         }
         return resultA;
     }

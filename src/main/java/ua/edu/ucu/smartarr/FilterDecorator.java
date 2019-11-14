@@ -3,12 +3,11 @@ package ua.edu.ucu.smartarr;
 import ua.edu.ucu.functions.MyPredicate;
 
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 // Tests every element and removes it if it doesn't satisfy MyPredicate
 public class FilterDecorator extends SmartArrayDecorator {
     private MyPredicate predicate;
-    private Object[] ArrayToReturn;
+    private Object[] arrayToReturn;
     private String operationName;
 
     public FilterDecorator(SmartArray smartArray, MyPredicate pr) {
@@ -21,19 +20,19 @@ public class FilterDecorator extends SmartArrayDecorator {
     public Object[] toArray() {
         operationName = "toArray";
         Object[] array = smartArray.toArray();
-        ArrayToReturn = new Object[smartArray.size()];
+        arrayToReturn = new Object[smartArray.size()];
         int insertionIndex = 0;
         for (int i = 0; i < array.length; i++) {
             if (predicate.test(array[i])) {
-                ArrayToReturn[insertionIndex] = array[i];
+                arrayToReturn[insertionIndex] = array[i];
                 insertionIndex++;
             } else {
 //                lessening an array length to avoid nulls in the array
-                ArrayToReturn = Arrays.copyOf(ArrayToReturn,
-                        ArrayToReturn.length - 1);
+                arrayToReturn = Arrays.copyOf(arrayToReturn,
+                        arrayToReturn.length - 1);
             }
         }
-        return ArrayToReturn;
+        return arrayToReturn;
     }
 
     @Override
@@ -44,6 +43,6 @@ public class FilterDecorator extends SmartArrayDecorator {
     @Override
     public int size() {
         operationName = "size";
-        return ArrayToReturn.length;
+        return arrayToReturn.length;
     }
 }
