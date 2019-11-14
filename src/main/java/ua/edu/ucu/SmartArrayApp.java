@@ -1,59 +1,56 @@
 package ua.edu.ucu;
 
 import java.util.Arrays;
+
 import ua.edu.ucu.functions.MyComparator;
 import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
+import ua.edu.ucu.smartarr.*;
 
 public class SmartArrayApp {
 
     public static Integer[]
-            filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
-                
-        MyPredicate pr = new MyPredicate() {
-            @Override
-            public boolean test(Object t) {
-                return ((Integer) t) > 0;
-            }
-        };
+    filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
 
-        MyComparator cmp = new MyComparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return ((Integer) o1) - ((Integer) o2);
-            }
-        };
+        MyPredicate pr = t -> ((Integer) t) > 0;
 
-        MyFunction func = new MyFunction() {
-            @Override
-            public Object apply(Object t) {
-                return 2 * ((Integer) t);
-            }
-        };
+        MyComparator cmp = (o1, o2) -> ((Integer) o1) - ((Integer) o2);
 
-        // Input: [-1, 2, 0, 1, -5, 3]
+        MyFunction func = t -> 2 * ((Integer) t);
+
         SmartArray sa = new BaseArray(integers);
 
-        sa = new FilterDecorator(sa, pr); // Result: [2, 1, 3];
-        sa = new SortDecorator(sa, cmp); // Result: [1, 2, 3]
-        sa = new MapDecorator(sa, func); // Result: [2, 4, 6]
-
-        // Alternative
-//        sa = new MapDecorator(
-//                    new SortDecorator(
-//                        new FilterDecorator(sa, pr),
-//                    cmp),
-//                func);
+        sa = new MapDecorator(
+                new SortDecorator(
+                        new FilterDecorator(sa, pr),
+                        cmp),
+                func);
         Object[] result = sa.toArray();
         return Arrays.copyOf(result, result.length, Integer[].class);
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
+    findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
 
-        // Hint: to convert Object[] to String[] - use the following code
-        //Object[] result = studentSmartArray.toArray();
-        //return Arrays.copyOf(result, result.length, String[].class);
-        return null;
+        MyPredicate pr = t -> ((Student) t).getYear() == 2;
+
+        MyPredicate prAv = t -> ((Student) t).getGPA() >= 4;
+
+        MyComparator cmp = (o1, o2) ->
+                ((Student) o1).getSurname().compareTo(((Student) o2).getSurname());
+
+        SmartArray sa = new BaseArray(students);
+
+        sa = new DistinctDecorator(sa);
+        sa = new FilterDecorator(sa, pr);
+        sa = new FilterDecorator(sa, prAv);
+        sa = new SortDecorator(sa, cmp);
+
+        Object[] result = sa.toArray();
+        String[] resultA = new String[result.length];
+        for (int i = 0; i < result.length; i++) {
+            resultA[i] = ((Student) result[i]).getSurname() + " " + ((Student) result[i]).getName();
+        }
+        return resultA;
     }
 }

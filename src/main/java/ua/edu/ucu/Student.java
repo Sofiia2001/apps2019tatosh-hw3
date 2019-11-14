@@ -1,7 +1,7 @@
 package ua.edu.ucu;
 
 
-class Student {
+public class Student {
 
     private double GPA;
     private int year;
@@ -33,7 +33,17 @@ class Student {
 
     @Override
     public String toString() {
-        return "Student{name=" + name + ", surname=" + surname + ", " + "GPA=" + GPA + ", year=" + year + '}';
+        return "Student{name=" + name + ", surname=" + surname + ", " +
+                "GPA=" + GPA + ", year=" + year + '}';
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Student) {
+            return other.toString().equals(this.toString());
+        } else {
+            return false;
+        }
     }
 
 }
