@@ -18,7 +18,7 @@ public class FilterDecorator extends SmartArrayDecorator {
 
     @Override
     public Object[] toArray() {
-        operationName = "toArray";
+        operationName = "Filtering an array";
         Object[] array = smartArray.toArray();
         arrayToReturn = new Object[smartArray.size()];
         int insertionIndex = 0;

@@ -15,7 +15,7 @@ public class DistinctDecorator extends SmartArrayDecorator {
 
     @Override
     public Object[] toArray() {
-        operationName = "toArray";
+        operationName = "Removing duplicates";
         Object[] array = arrayToReturn;
         arrayToReturn = new Object[smartArray.size()];
         int insertIndex = 0;
