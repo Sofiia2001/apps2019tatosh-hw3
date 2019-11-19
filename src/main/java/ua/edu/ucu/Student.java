@@ -40,10 +40,20 @@ public class Student {
     @Override
     public boolean equals(Object other) {
         if (other instanceof Student) {
-            return other.toString().equals(this.toString());
+            return other.hashCode() == this.hashCode();
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        String studentFullName = getName() + getSurname();
+        for (int i = 0; i < studentFullName.length(); i++) {
+            result += studentFullName.charAt(i);
+        }
+        return result;
     }
 
 }
