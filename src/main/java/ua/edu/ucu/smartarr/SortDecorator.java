@@ -11,13 +11,12 @@ public class SortDecorator extends SmartArrayDecorator {
 
     public SortDecorator(SmartArray smartArray, MyComparator cmp) {
         super(smartArray);
-        operationName = smartArray.operationDescription();
+        operationName = "Sorting elements";
         comparator = cmp;
     }
 
     @Override
     public Object[] toArray() {
-        operationName = "Sorting elements";
         Object[] array = smartArray.toArray();
         Arrays.sort(array, comparator);
         return array;

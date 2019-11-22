@@ -9,11 +9,11 @@ public class BaseArray implements SmartArray {
 
     public BaseArray(Object[] arr) {
         array = Arrays.copyOf(arr, arr.length);
+        operationName = "toArray";
     }
 
     @Override
     public Object[] toArray() {
-        operationName = "toArray";
         return array;
     }
 
@@ -24,7 +24,6 @@ public class BaseArray implements SmartArray {
 
     @Override
     public int size() {
-        operationName = "size";
         return array.length;
     }
 }

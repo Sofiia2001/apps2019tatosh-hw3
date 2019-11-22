@@ -9,13 +9,12 @@ public class DistinctDecorator extends SmartArrayDecorator {
 
     public DistinctDecorator(SmartArray smartArray) {
         super(smartArray);
-        operationName = smartArray.operationDescription();
+        operationName = "Removing duplicates";
         arrayToReturn = smartArray.toArray();
     }
 
     @Override
     public Object[] toArray() {
-        operationName = "Removing duplicates";
         Object[] array = arrayToReturn;
         arrayToReturn = new Object[smartArray.size()];
         int insertIndex = 0;
@@ -46,7 +45,6 @@ public class DistinctDecorator extends SmartArrayDecorator {
 
     @Override
     public int size() {
-        operationName = "size";
         return arrayToReturn.length;
     }
 }

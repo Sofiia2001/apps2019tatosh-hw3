@@ -11,11 +11,11 @@ public class MapDecorator extends SmartArrayDecorator {
         super(smartArray);
         operationName = smartArray.operationDescription();
         function = func;
+        operationName = "Mapping elements to another object";
     }
 
     @Override
     public Object[] toArray() {
-        operationName = "Mapping elements to another object";
         Object[] array = smartArray.toArray();
         for (int i = 0; i < array.length; i++) {
             array[i] = function.apply(array[i]);

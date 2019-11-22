@@ -12,13 +12,12 @@ public class FilterDecorator extends SmartArrayDecorator {
 
     public FilterDecorator(SmartArray smartArray, MyPredicate pr) {
         super(smartArray);
-        operationName = smartArray.operationDescription();
+        operationName = "Filtering an array";
         predicate = pr;
     }
 
     @Override
     public Object[] toArray() {
-        operationName = "Filtering an array";
         Object[] array = smartArray.toArray();
         arrayToReturn = new Object[smartArray.size()];
         int insertionIndex = 0;
@@ -42,7 +41,6 @@ public class FilterDecorator extends SmartArrayDecorator {
 
     @Override
     public int size() {
-        operationName = "size";
         return arrayToReturn.length;
     }
 }
